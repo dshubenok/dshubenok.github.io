@@ -26,6 +26,8 @@ nav:
   - Четвертая неделя:
     - Интерфейсы и API: week4/api.md
     - Telegram API: week4/telegram-api.md
+  - Пятая неделя:
+    - Удалённый сервер: week5/remote-server.md
   - Что здесь происходит?: wtf.md
   - Что значит «сделать»: done.md
 
