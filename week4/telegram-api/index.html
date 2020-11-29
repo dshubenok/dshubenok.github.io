@@ -1,0 +1,983 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+    
+    
+      
+        <title>Telegram API - python 101 course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6910b76c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="indigo">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#telegram-api" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="python 101 course" class="md-header-nav__button md-logo" aria-label="python 101 course">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            python 101 course
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Telegram API
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../week1/bash/" class="md-tabs__link">
+        Первая неделя
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../week2/github/" class="md-tabs__link">
+        Вторая неделя
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../week3/vscode/" class="md-tabs__link">
+        Третья неделя
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="../api/" class="md-tabs__link md-tabs__link--active">
+        Четвертая неделя
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../week5/remote-server/" class="md-tabs__link">
+        Пятая неделя
+      </a>
+    </li>
+  
+
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="python 101 course" class="md-nav__button md-logo" aria-label="python 101 course">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    python 101 course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+    <label class="md-nav__link" for="nav-1">
+      Первая неделя
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Первая неделя" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Первая неделя
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week1/bash/" class="md-nav__link">
+      Линукс и Баш
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week1/git/" class="md-nav__link">
+      Гит и Гитхаб
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      Вторая неделя
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Вторая неделя" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Вторая неделя
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week2/github/" class="md-nav__link">
+      GitHub Flow и ветки
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week2/bash-scripting/" class="md-nav__link">
+      Bash-скриптинг
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    <label class="md-nav__link" for="nav-3">
+      Третья неделя
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Третья неделя" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Третья неделя
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week3/vscode/" class="md-nav__link">
+      Настройка окружения
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week3/python-intro/" class="md-nav__link">
+      Основы Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week3/if-for/" class="md-nav__link">
+      Ветвления и итерации
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    <label class="md-nav__link" for="nav-4">
+      Четвертая неделя
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Четвертая неделя" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Четвертая неделя
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/" class="md-nav__link">
+      Интерфейсы и API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Telegram API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Telegram API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#telegram-api" class="md-nav__link">
+    Telegram API и боты
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    Как создать бота
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    Работа с ботом
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    Хостинг для бота
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    Практика (проект)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    Примеры проектов (но нужно придумать свой)
+  </a>
+  
+    <nav class="md-nav" aria-label="Примеры проектов (но нужно придумать свой)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-101-coding-challenge" class="md-nav__link">
+    Python 101 Coding Challenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-is-molodec" class="md-nav__link">
+    Who is molodec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karma-bot" class="md-nav__link">
+    Karma bot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kick-bot" class="md-nav__link">
+    Kick bot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat-gif" class="md-nav__link">
+    Cat gif
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trapwalker" class="md-nav__link">
+    Идея от пользователя trapwalker с Хабра
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    Геокодер бот
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    Пинг-бот
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Пятая неделя
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Пятая неделя" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Пятая неделя
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../week5/remote-server/" class="md-nav__link">
+      Удалённый сервер
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../wtf/" class="md-nav__link">
+      Что здесь происходит?
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../done/" class="md-nav__link">
+      Что значит «сделать»
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#telegram-api" class="md-nav__link">
+    Telegram API и боты
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    Как создать бота
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    Работа с ботом
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    Хостинг для бота
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    Практика (проект)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    Примеры проектов (но нужно придумать свой)
+  </a>
+  
+    <nav class="md-nav" aria-label="Примеры проектов (но нужно придумать свой)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-101-coding-challenge" class="md-nav__link">
+    Python 101 Coding Challenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-is-molodec" class="md-nav__link">
+    Who is molodec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karma-bot" class="md-nav__link">
+    Karma bot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kick-bot" class="md-nav__link">
+    Kick bot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat-gif" class="md-nav__link">
+    Cat gif
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trapwalker" class="md-nav__link">
+    Идея от пользователя trapwalker с Хабра
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    Геокодер бот
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    Пинг-бот
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Telegram API</h1>
+                
+                <h2 id="telegram-api">Telegram API и боты</h2>
+<p>Привет! Наконец-то подобрались к первому самостоятельному проекту. В этом уроке будет ещё немного теории, а потом ты самостоятельно запилишь проект — телеграм-бота.</p>
+<p>Немного о том, как внутри работает Телеграм. </p>
+<p>С одной стороны есть серверы Телеграма. </p>
+<p>С другой стороны есть программы-клиенты, которые с этими серверами взаимодействуют. Например, официальное мобильное приложение Telegram в твоем телефоне — это клиент, официальное приложение Telegram на твоем ноуте — это тоже клиент. </p>
+<p>Ещё существует специальный критпографический протокол MTProto (<a href="https://core.telegram.org/mtproto">https://core.telegram.org/mtproto</a>), который используется для их взаимодействия. </p>
+<p>Клиенты построены на основе библиотеки TDLib. Разработчики Телеграма выложили в открытый доступ исходный код TDLib (<a href="https://github.com/tdlib/td">https://github.com/tdlib/td</a>), чтобы другие разработчики на его основе могли создавать собственные клиенты. Так появился, например, популярный Telegram X. </p>
+<p>У Телеграма есть API, которое позволяет совершать действия как через свой аккаунт (например, отправлять сообщения в личку), так и через бота. </p>
+<p>Бот (сокращение от "ро<strong>бот</strong>") — это специальный сервисный аккаунт с немного ограниченным функционалом, который может совершать какие-то полезные действия, никого не напрягая. </p>
+<p>В этом уроке мы создадим собственного бота-попугая, который повторяет сообщение, которое ему отправляет пользователь. А в качестве практики ты создашь бота с нормальным функционалом и оформишь его как проект на GitHub'е.</p>
+<h2 id="_1">Как создать бота</h2>
+<p>Чтобы создать своего первого бота, нужно пойти к @BotFather и попросить его это сделать (с уважением). </p>
+<p>Найди в Телеграме бота @BotFather и напиши ему команду <code>/start</code>. В ответ он скинет список доступных команд и ссылку на <a href="https://core.telegram.org/bots">https://core.telegram.org/bots</a> </p>
+<p>Нам нужна команда <code>/newbot</code>, отправь её. BotFather попросит ввести имя твоего будущего бота, это то имя, которое будет отображаться сверху, оно может быть любым. Придумай и нажми Enter.</p>
+<p>После этого введи юзернейм для бота, обязательное условие — юзернейм должен оканчиваться на "bot" и быть уникальным. </p>
+<p>Отлично, после этого ты получишь токен и ссылку на Telegram Bot API: <a href="https://core.telegram.org/bots/api">https://core.telegram.org/bots/api</a>. Их нужно использовать для работы с ботом.</p>
+<h2 id="_2">Работа с ботом</h2>
+<p>Бот не начинает диалог первым, поэтому обязательно найди его по юзернейму и отправь <code>/start</code>, чтобы он мог отправлять тебе сообщения. </p>
+<p>Можно работать с ботом напрямую с помощью <code>requests</code> и Telegram Bot API, как мы это делали в прошлом уроке. </p>
+<p>Например, чтобы сделать простейшую штуку — отправить сообщение, можно поступить так:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">BOT_TOKEN</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">send_message</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">chat_id</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+        <span class="s1">&#39;chat_id&#39;</span><span class="p">:</span> <span class="n">chat_id</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;https://api.telegram.org/bot</span><span class="si">{</span><span class="n">BOT_TOKEN</span><span class="si">}</span><span class="s1">/sendMessage&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">send_message</span><span class="p">(</span><span class="s1">&#39;Привет&#39;</span><span class="p">,</span> <span class="mi">123456</span><span class="p">)</span>  <span class="c1"># пользователю 123456 ушло сообщение &quot;Привет&quot;</span>
+</code></pre></div>
+
+<p>Но как обрабатывать те сообщения, которые приходят боту? Существуют разные способы, например, Long Polling и Web Hooks. </p>
+<p>Вкратце, что это за способы:</p>
+<p><strong>Long Polling</strong> — это когда мы постоянно спрашиваем у сервера Телеграм про обновления каждые n секунд: "А не пришло ли мне чего-нибудь? Нет? А сейчас? А сейчас тоже? А теперь?" Для этого используется метод <a href="https://core.telegram.org/bots/api#getupdates">https://core.telegram.org/bots/api#getupdates</a> </p>
+<p><strong>Web Hooks</strong> — когда мы поднимает собственный сервер с сертификатом и настраиваем специальный URL, на который будут приходить обновления, когда они появятся. Для этого используется метод <a href="https://core.telegram.org/bots/api#setwebhook">https://core.telegram.org/bots/api#setwebhook</a> </p>
+<p>Давайте не будем изобретать велосипеды и писать эти методы на requests, потому что есть специальные библиотеки для Питона, в которых это уже реализовано. Например, в порядке популярности (на конец 2020 года):</p>
+<p><a href="https://github.com/python-telegram-bot/python-telegram-bot">https://github.com/python-telegram-bot/python-telegram-bot</a></p>
+<p><a href="https://github.com/LonamiWebs/Telethon">https://github.com/LonamiWebs/Telethon</a></p>
+<p><a href="https://github.com/eternnoir/pyTelegramBotAPI">https://github.com/eternnoir/pyTelegramBotAPI</a></p>
+<p><a href="https://github.com/aiogram/aiogram">https://github.com/aiogram/aiogram</a></p>
+<p>С большим отрывом лидирует python-telegram-bot, но мы в курсе будем использовать Telethon, потому что он обладает рядом преимуществ. Почитать про Telethon можно здесь: <a href="https://docs.telethon.dev/en/latest/">https://docs.telethon.dev/</a></p>
+<p>Телетон построен на TDLib и работает как клиент, поэтому тебе нужно зарегистрировать приложение на <a href="https://my.telegram.org/">https://my.telegram.org/</a> и получить API ID и API Hash. Там просто, поэтому разберешься. </p>
+<p>Вот пример телеграм-бота, который приветствует тебя после активации и повторяет в ответ то, что ты ему пишешь:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">telethon</span> <span class="kn">import</span> <span class="n">TelegramClient</span><span class="p">,</span> <span class="n">events</span>
+
+<span class="n">BOT_TOKEN</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">API_ID</span> <span class="o">=</span> 
+<span class="n">API_HASH</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="n">bot</span> <span class="o">=</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s1">&#39;bot&#39;</span><span class="p">,</span> <span class="n">API_ID</span><span class="p">,</span> <span class="n">API_HASH</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">bot_token</span><span class="o">=</span><span class="n">BOT_TOKEN</span><span class="p">)</span>
+
+<span class="nd">@bot</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">NewMessage</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;/start&#39;</span><span class="p">))</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Send a message when the command /start is issued.&quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="n">event</span><span class="o">.</span><span class="n">respond</span><span class="p">(</span><span class="s1">&#39;Привет! Я бот-попугай, повторяю твои сообщения)&#39;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">events</span><span class="o">.</span><span class="n">StopPropagation</span>
+
+<span class="nd">@bot</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">NewMessage</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Echo the user message.&quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="n">event</span><span class="o">.</span><span class="n">respond</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Start the bot.&quot;&quot;&quot;</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">run_until_disconnected</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Попробуй самостоятельно разобраться, что здесь происходит. Из незнакомых понятий здесь только <code>async</code> и <code>await</code>, они про асинхронный запуск функций. </p>
+<p>Подробнее можно почитать здесь: <a href="https://docs.telethon.dev/en/latest/concepts/asyncio.html#mastering-asyncio">https://docs.telethon.dev/en/latest/concepts/asyncio.html#mastering-asyncio</a> </p>
+<p>Некоторые примеры можно посмотреть здесь: <a href="https://github.com/LonamiWebs/Telethon/tree/master/telethon_examples">https://github.com/LonamiWebs/Telethon/tree/master/telethon_examples</a> </p>
+<p>В целом, все ответы есть здесь, в официальной документации: <a href="https://docs.telethon.dev/">https://docs.telethon.dev/</a> </p>
+<p>А ещё в нашем чате, так что не стесняйся туда писать.</p>
+<h2 id="_3">Хостинг для бота</h2>
+<p>Тебе уже стало понятно, что постоянно держать запущенного бота на своём домашнем компьютере — такой себе вариант. Что делать?</p>
+<p>Если у тебя андроид и постоянный мобильный интернет, то можно запустить бота на телефоне. Телефон включен постоянно и там можно держать запущенный скрипт с ботом. Ну-у-у, тоже что-то не то.</p>
+<p>Можно купить плату Raspberry PI и запустить на ней. Ну хз...</p>
+<p>Лучше всего отправить бота жить на удаленный сервер. В идеале нужно иметь свой облачный сервер, на котором будет запущен бот, но администрирование сервера — тема отдельной недели, поэтому на данном этапе мы возьмём готовое решение, Heroku или PythonAnywhere. А свой сервер поднимем во второй части курса. </p>
+<p>Зарегистрируйся на <a href="https://www.heroku.com/">https://www.heroku.com</a> </p>
+<p>Пройди на <a href="https://dashboard.heroku.com/apps">https://dashboard.heroku.com/apps</a> и создай приложение (New → Create New App, справа-сверху). </p>
+<p>Открой созданное приложение и пройди во вкладку Deploy. Проще всего задеплоить бота напрямую с Гитхаба, поэтому выбери GitHub как Deployment method. Нужно будет подключить твой аккаунт, согласись на это. Возможно, попросят ввести пароль. Затем введи название репозитория, на котором будет лежать код с ботом. </p>
+<p>Есть пара замечаний о коде. Во-первых, в репо должен лежать файл requirements.txt со списком зависимостей, которые используются в проекте. Во-вторых, в репо должен лежать файл Procfile в котором указана точка входа — имя файла с ботом. Пример оформленного для деплоя репо от Хероку, после которого всё станет ясно: <a href="https://github.com/heroku/python-sample">https://github.com/heroku/python-sample</a>. Сделай по аналогии.</p>
+<p>Переменные окружения. Мы помним, что хранить в репо токены и прочие секретные данные нельзя, но как тогда прокинуть их на Хероку? Зайди в Settings, найди Config Vars и нажми Reveal Config Vars. Затем проставь нужные переменные окружения. Считай это аналогом файла .env. Они подтянутся аналогичным образом.</p>
+<p>Затем нажми Deploy Branch. Как просто, не правда ли?</p>
+<h2 id="_4">Практика (проект)</h2>
+<p>Проект должен использовать <a href="https://core.telegram.org/bots/api">Telegram Bot API</a> и интерфейс телеграм-бота для взаимодействия с пользователем. Взаимодействовать с API рекомендуется через библиотеку Telethon.</p>
+<p>Проект нужно оформить на GitHub'е.</p>
+<h2 id="_5">Примеры проектов (но нужно придумать свой)</h2>
+<h3 id="python-101-coding-challenge">Python 101 Coding Challenge</h3>
+<p>Телеграм-бот <code>python101 coding challenge</code>. По аналогии с Leetcode Coding Challende, каждый день в 9 утра предлагает решить задачку. Код решения нужно отправить боту (продумать механику), оно прогоняется на тестах и в случае успеха засчитывается. </p>
+<p>Есть кнопки или команды для вступления в челлендж. Если три дня не присылаешь задания, то ты автоматически выбываешь. Может быть таблица с результатами. </p>
+<h3 id="who-is-molodec">Who is molodec</h3>
+<p>Что-нибудь с рандомом: например, кто сегодня молодец. Бот после команды <code>/molodec_today</code> вытаскивает список людей в чате, рандомно выбирает пользователя и тегает его в чате со словами "Поздравляю, ты сегодня молодец!" </p>
+<h3 id="karma-bot">Karma bot</h3>
+<p>Карма-бот, ты можешь плюсовать участника чата, например если он тебе в чем-то помог, у каждого есть количество баллов. Можно вывести рейтинг.</p>
+<h3 id="kick-bot">Kick bot</h3>
+<p>Бот для чистки чатика от неактивных пользователей. Отправляет сообщение с кнопкой в чат. Нужно нажать на кнопку в течение суток, тем самым подтвердив, что ты читаешь сообщения и вообще проявляешь активность в чате. Напоминает нажать ещё пару раз. Кикает всех, кто не нажмёт.</p>
+<h3 id="cat-gif">Cat gif</h3>
+<p>Бот, который скидывает гифку с котиком. Найти какой-нибудь сервис с гифками, рандомно выбирать одну и скидывать по запросу. Гифки не должны повторяться.</p>
+<h3 id="trapwalker">Идея от пользователя trapwalker с Хабра</h3>
+<p>"Можно сделать бота, который притворяясь человеком бдит денно и нощно и детектит все отредактированные и удалённые сообщения, чтобы переслать их хозяину в отдельный канал в первозданном виде прямо в момент редактирования или удаления.Наверно такое можно даже за деньги предлагать=).Идею дарю. Хотя 100% уже кто-то додумался и сделал.Всегда же интересно всякие паблики и каналы помониторить на предмет нечаянных сливов и зашкваров, которые долго в истории не провисят."</p>
+<h3 id="_6">Геокодер бот</h3>
+<p>Скидывать адрес по координатам. Взять Яндекс.Геокодер API и обернуть в бота.</p>
+<h3 id="-">Пинг-бот</h3>
+<p>Пинг-бот, проверяющий состояние сервера. Присылает уведомление о том, что сервер упал. Просто взять задание с прошлой недели и обернуть в бота.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../api/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Назад
+                </span>
+                Интерфейсы и API
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../week5/remote-server/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Вперед
+                </span>
+                Удалённый сервер
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            copyleft &copy; copyright
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "search.config.lang": "ru", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "\u041f\u043e\u0438\u0441\u043a", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e # \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
